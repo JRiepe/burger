@@ -1,33 +1,44 @@
-var orm = require('./config/orm.js');
+
+var express = require('express');
+var methodOverride = require('method-override');
+var bodyParser = require('body-parser');
+var path = require('path');
+
+
+
 
 /* The following commands will run every time the app gets started.*/
 
-//Find all the pets ordering by the lowest price to the highest price
-//JUST FOR YOUR REFERENCE: selectAndOrder(whatToSelect, table, orderCol, orderBy)
-orm.selectAndOrder('*', 'parties', 'party_cost', 'DESC');
-console.log('SELECT * FROM parties ORDERBY part_cost DESC')
+var app = express(); // Tells node that we are creating an "express" server
+var PORT = process.env.PORT || 8081; // Sets an initial port. We'll use this later in our listener
 
-//the above query does this:
-//SELECT * FROM pets ORDER BY price DESC;
+// BodyParser makes it easy for our server to interpret data sent to it.
+// The code below is pretty standard.
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.text());
+app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
-//Find a pet in the pets table by an animal_name of Rachel
-//JUST FOR YOUR REFERENCE: selectWhere(tableInput, colToSearch, valOfCol)
-orm.selectAndOrder('*', 'parties', 'party_name', 'ASC');
-console.log('SELECT * FROM parties ORDERBY part_name ASC')
-//the above query does this:
-//SELECT * FROM pets WHERE animal_name = Rachel;
+// ================================================================================
+// ROUTER
+// The below points our server to a series of "route" files.
+// These routes give our server a "map" of how to respond when users visit or request data from various URLs. 
+// ================================================================================
 
-//Find the buyer with the most pets
-//JUST FOR YOUR REFERENCE: findWhoHasMost(tableOneCol, tableTwoForeignKey, tableOne, tableTwo)
-orm.findWhoHasMost('id', 'client_id', 'parties', 'clients');
-console.log("SELECT * FROM parties")
+require('./controllers/burgers_controller.js')(app); 
 
-//the above query does this:
-/*
-SELECT buyer_name, COUNT(buyer_name) AS count
-FROM buyers
-LEFT JOIN pets ON pets.buyer_id = buyers.id
-GROUP BY buyer_name
-ORDER BY count desc
-LIMIT 1
-*/
+app.use(methodOverride('_method'))
+var exphbs = require('express-handlebars');
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
+
+// ==============================================================================
+// LISTENER
+// The below code effectively "starts" our server 
+// ==============================================================================
+
+app.listen(PORT, function() {
+	console.log("App listening on PORT: " + PORT);
+});

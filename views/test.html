@@ -1,0 +1,43 @@
+<link rel="stylesheet" type="text/css" href="../public/assets/css/burger_style.css">
+
+<img id="burgerimg" src="../public/assets/img/burger.png">
+<h1>Eat-Da-Burger</h1>
+<!-- this is index.handlebars -->
+
+<ul>
+  {{#each burger}}
+  	<li>
+  		<p>{{this.id}}. {{this.burger_name}}</p>
+
+      {{!-- Form should send a delete command to the server --}}
+      <form>
+        <input type="hidden" name="id" value="{{this.id}}">
+        <button type="submit">Devour it!</button>
+      </form>
+
+      <a href="//{{this.id}}">Update this quote</a>
+  	</li>
+  {{/each}}
+</ul>
+
+<ul>
+  {{#each devoured}}
+  	<li>
+  		<p>{{this.id}}. {{this.burger_name}}</p>
+    
+  	</li>
+  {{/each}}
+</ul>
+
+<br>
+
+{{!-- Form should send a post command to the server --}}
+
+<form class="devour-form" method='POST' action="/add">
+  <div class="form-group">
+    
+    <textarea id="burger" name="burger" rows="1" cols="40"></textarea>
+  </div>
+
+  <button type="submit">Add Burger</button>
+</form>
