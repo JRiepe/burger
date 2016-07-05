@@ -1,39 +1,42 @@
-<h1>Quotes App</h1>
 
-<p>Manage quotes with this app</p>
+<img id="burgerimg" src="../public/assets/img/burger.png">
+<h1>Eat-Da-Burger</h1>
 <!-- this is index.handlebars -->
+
 <ul>
-  {{#each quotes}}
-  	<li>
-  		<p><span class="label">ID:</span> {{this.id}}</p>
-      <p><span class="label">Quote:</span> {{this.quote}}</p>
-      <p><span class="label">Author:</span> {{this.author}}</p>
+  {{#each burger}}
+    <li>
+      <p>{{this.id}}. {{this.burger_name}}</p>
 
       {{!-- Form should send a delete command to the server --}}
       <form>
         <input type="hidden" name="id" value="{{this.id}}">
-        <button type="submit">Delete</button>
+        <button type="submit">Devour it!</button>
       </form>
 
-      <a href="/quotes/{{this.id}}">Update this quote</a>
-  	</li>
+      <a href="/devour/{{this.id}}">Update this quote</a>
+    </li>
   {{/each}}
 </ul>
 
-<h2>Add a Quote</h2>
+<ul>
+  {{#each devoured}}
+    <li>
+      <p>{{this.id}}. {{this.burger_name}}</p>
+    
+    </li>
+  {{/each}}
+</ul>
+
+<br>
 
 {{!-- Form should send a post command to the server --}}
-<form class="create-form">
 
+<form class="devour-form" method='POST' action="/add">
   <div class="form-group">
-    <label for="auth">Author:</label>
-    <input type="text" id="auth" name="author">
+    
+    <textarea id="burger" name="burger" rows="1" cols="40"></textarea>
   </div>
 
-  <div class="form-group">
-    <label for="quo">Quote:</label>
-    <textarea id="quo" name="quote" rows="8" cols="40"></textarea>
-  </div>
-
-  <button type="submit">Add Quote</button>
+  <button type="submit">Add Burger</button>
 </form>

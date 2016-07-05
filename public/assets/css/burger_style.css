@@ -1,5 +1,14 @@
+html {
+	margin: 0 auto;
+	
+	background: #ffcc5c;
+	text-align: center;
+	max-width: 800px;
+	
+}
 li {
-  background: #FAEBD7;
+  position: relative;
+  background: white;
   margin: 5px;
   padding: 5px;
 }
@@ -16,4 +25,18 @@ li {
 
 .form-group {
   margin-bottom: 5px;
+}
+
+button {
+	width: 100px;
+	height: 30px;
+	border-radius: 5px;
+}
+
+#burgerimg {
+	width: 200px;
+}
+
+h1 {
+	color: #622569;
 }

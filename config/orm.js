@@ -1,4 +1,4 @@
-var connection = require('./connection.js');
+var connection = require('./config/connection.js');
 
 // object relational mapper (ORM)
 
@@ -25,3 +25,5 @@ var orm = {
 };
 
 module.exports = orm;
+
+//  `selectAll()`, `insertOne()`, `updateOne()`
