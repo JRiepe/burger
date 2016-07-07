@@ -3,34 +3,39 @@ var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 
 
-var connection = require('./config/connection.js');
-
-
-
-var orm = require('../config/orm.js');
+//var orm = require('../config/orm.js');
 
 /* The following commands will run every time the app gets started.*/
+module.exports = function(app){
 
-//Find all the pets ordering by the lowest price to the highest price
-//JUST FOR YOUR REFERENCE: selectAndOrder(whatToSelect, table, orderCol, orderBy)
-orm.selectAndOrder('*', 'parties', 'party_cost', 'DESC');
-console.log('SELECT * FROM parties ORDERBY part_cost DESC')
+
+function selectAll() {
+	orm.selectAll('*', 'burgers', 'id', 'ASC');
+	if (err) throw err; 
+	res.render('index', {
+            burger: result
+        }); // 2nd function al
+	//console.log('SELECT * FROM burgers ORDERBY id ASC');
+};
 
 //the above query does this:
-//SELECT * FROM pets ORDER BY price DESC;
+//SELECT * FROM BURGERS ORDER BY id DESC;
 
 //Find a pet in the pets table by an animal_name of Rachel
 //JUST FOR YOUR REFERENCE: selectWhere(tableInput, colToSearch, valOfCol)
-orm.selectAndOrder('*', 'parties', 'party_name', 'ASC');
-console.log('SELECT * FROM parties ORDERBY part_name ASC')
+function insertOne() {
+	orm.insertOne('table', 'burgers', 'id', 'ASC');
+};
+//console.log('INSERT INTO burgers (burger_name, devoured, date) VALUES ()');
 //the above query does this:
 //SELECT * FROM pets WHERE animal_name = Rachel;
 
 //Find the buyer with the most pets
 //JUST FOR YOUR REFERENCE: findWhoHasMost(tableOneCol, tableTwoForeignKey, tableOne, tableTwo)
-orm.findWhoHasMost('id', 'client_id', 'parties', 'clients');
-console.log("SELECT * FROM parties")
-
+function updateOne() {
+	orm.updateOne('burgers', 'client_id', 'parties');
+	//console.log("UPDATE burgers SET devoured = true WHERE id = ident ")
+}
 //the above query does this:
 /*
 SELECT buyer_name, COUNT(buyer_name) AS count
@@ -41,5 +46,5 @@ ORDER BY count desc
 LIMIT 1
 */
 
-module.exports = orm;
+};
 

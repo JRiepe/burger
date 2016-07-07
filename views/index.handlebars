@@ -3,40 +3,44 @@
 <h1>Eat-Da-Burger</h1>
 <!-- this is index.handlebars -->
 
-<ul>
+<ol>
   {{#each burger}}
+    {{#if !this.devoured}}
     <li>
-      <p>{{this.id}}. {{this.burger_name}}</p>
+      <p>{{this.id}}. {{this.burger_name}} 
 
-      {{!-- Form should send a delete command to the server --}}
-      <form>
-        <input type="hidden" name="id" value="{{this.id}}">
+      
+      <form action="/api/devour/{{this.id}}" method="POST">
+        
         <button type="submit">Devour it!</button>
-      </form>
+      </form></p>
 
-      <a href="/devour/{{this.id}}">Update this quote</a>
+      
     </li>
+    {{/if}}
   {{/each}}
-</ul>
+</ol>
 
-<ul>
+<ol>
   {{#each devoured}}
+    {{#if devoured}}
     <li>
       <p>{{this.id}}. {{this.burger_name}}</p>
     
     </li>
+    {{/if}}
   {{/each}}
-</ul>
+</ol>
 
 <br>
 
 {{!-- Form should send a post command to the server --}}
 
-<form class="devour-form" method='POST' action="/add">
+<form  action="/api/addBurger" method='POST'>
   <div class="form-group">
     
-    <textarea id="burger" name="burger" rows="1" cols="40"></textarea>
+    <textarea id="addedBurger" name="addedBurger" rows="1" cols="40"></textarea>
   </div>
 
-  <button type="submit">Add Burger</button>
+  <button type="submit">Add New Burger</button>
 </form>

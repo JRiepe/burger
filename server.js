@@ -5,8 +5,6 @@ var bodyParser = require('body-parser');
 var path = require('path');
 
 
-
-
 /* The following commands will run every time the app gets started.*/
 
 var app = express(); // Tells node that we are creating an "express" server
@@ -26,13 +24,18 @@ app.use(bodyParser.json({type:'application/vnd.api+json'}));
 // ================================================================================
 
 require('./controllers/burgers_controller.js')(app); 
+//require('./models/burger.js')(app);
 
-app.use(methodOverride('_method'))
+app.use(methodOverride('_method'));
 var exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
+
+
+
+
 
 // ==============================================================================
 // LISTENER
