@@ -31,40 +31,22 @@ module.exports = function(app){
 	// ---------------------------------------------------------------------------
 	app.get('/index', function (req, res) {
 	 	
-	    	var result = orm.selectAll('burgers');
+	    	orm.selectAll('burgers');
 	        //if (err) throw err; // include to show where db error is
-	        for (var prop in result) {
-	        	if (this.devoured) {
-	        		dev[prop].push=result[prop];
-	        	}
-	        	else {
-	        		burg[prop].push=result[prop];
-	        	}
-	        }
-	        result.render('index', {
-	            
-	            burger: burg,
-	            devoured: dev
+	        res.render('index', {	            
+	            burger: res,
+	            devour: res
 	        }); // 2nd function always an object // end res.render	   
 	}); // end  app.get
 
 
 
 	app.use(function(req, res){
-			var result = orm.selectAll('burgers');
+			orm.selectAll('burgers');
 	        //if (err) throw err; // include to show where db error is
-	        for (var prop in result) {
-	        	if (this.devoured) {
-	        		result.dev[prop].push=result[prop];
-	        	}
-	        	else {
-	        		result.burg[prop].push=result[prop];
-	        	}
-	        }
-	        result.render('index', {
-	       
-	            burger: burg,
-	            devoured: dev
+	        res.render('index', {	       
+	            burger: res,
+	            devour: res
 	        }); // 2nd function always an object // end res.render	   
 	}); // end  app.use
 
@@ -75,45 +57,27 @@ module.exports = function(app){
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
-	app.post('/api/devour/:ident', function (req, res) {
-	    orm.updateOne('burgers', 'ident')
-		//if (err) throw err;
-	    var result = orm.selectAll('burgers');
+	app.get('/api/devours/:ident', function (req, res) {
+		    orm.updateOne('burgers', ident)
+			//if (err) throw err;
+		    orm.selectAll('burgers');
 	        //if (err) throw err; // include to show where db error is
-	        for (var prop in result) {
-	        	if (this.devoured) {
-	        		dev[prop].push=result[prop];
-	        	}
-	        	else {
-	        		burg[prop].push=result[prop];
-	        	}
-	        }
-	        res.render('index', {
-	            
-	            burger: burg,
-	            devoured: dev
+	        res.render('index', {	            
+	            burger: res,
+	            devour: res
 	        }); // 2nd function always an object // end res.render	 
 	}); // end  app.post
 	
-	app.post('/api/addBurger', function (req, res) {
+	app.get('/api/addBurger', function (req, res) {
 	    orm.insertOne('burgers', 'addedBurger')
 		//if (err) throw err;
 	    var result = orm.selectAll('burgers');
 	        //if (err) throw err; // include to show where db error is
-	        for (var prop in result) {
-	        	if (this.devoured) {
-	        		dev[prop].push=result[prop];
-	        	}
-	        	else {
-	        		burg[prop].push=result[prop];
-	        	}
-	        }
 	        res.render('index', {
-	            
-	            burger: burg,
-	            devoured: dev
+	           	burger: res,
+	            devour: res
 	        }); // 2nd function always an object // end res.render	 
 	}); // end  app.post
 
 
-};
+}; // end module.exports
