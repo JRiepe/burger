@@ -8,13 +8,24 @@ var orm = require('../config/orm.js');
 module.exports = function(app){
 
 
-	orm.selectAll('*', 'burgers', 'devoured', false);
+		orm.selectAll('burgers', function (res) {
+			res.render('index', {	       
+	            burgers: res,            
+        	}); // 2nd function always an object // end res.render
+		});
+	        
+	     
 		
-	orm.selectAll('*', 'burgers', 'devoured', false);
-        
-	orm.insertOne('table', 'burgers', 'id', 'ASC');
-
-	orm.updateOne('burgers', 'client_id', 'parties');
-
-};
+		orm.updateOne('burgers', 'req.params.ident', function (res) {
+			res.redirect('/index');
+		});		
+			     
+	
+		
+		
+		orm.insertOne('burgers', 'addedBurger', function (res) {
+			res.redirect('/index'); 
+		});
+		   
+}; // end module.exports = function(app){
 

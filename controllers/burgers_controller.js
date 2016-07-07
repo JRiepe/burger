@@ -3,17 +3,12 @@ var express = require('express');
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 var connection = require('../config/connection.js');
-
-
-
-// ===============================================================================
-// api-routes
-
-
+var path = require('path');
+var orm = require('../config/orm.js');
 // ===============================================================================
 // ROUTING
 // ===============================================================================
-var orm = require('../config/orm.js');
+
 
 module.exports = function(app){
 
@@ -31,22 +26,24 @@ module.exports = function(app){
 	// ---------------------------------------------------------------------------
 	app.get('/index', function (req, res) {
 	 	
-	    	orm.selectAll('burgers');
-	        //if (err) throw err; // include to show where db error is
-	        res.render('index', {	            
-	            burger: res,
-	            devour: res
-	        }); // 2nd function always an object // end res.render	   
+	    	orm.selectAll('burgers', function(res) {
+	    		
+	    		res.render('index', {	            
+		           burgers: res
+		        }); //  end res.render
+	    	});   
+		        	
+	           
 	}); // end  app.get
 
 
 
 	app.use(function(req, res){
 			orm.selectAll('burgers');
-	        //if (err) throw err; // include to show where db error is
+	        
 	        res.render('index', {	       
-	            burger: res,
-	            devour: res
+	            burgers: res,
+	            
 	        }); // 2nd function always an object // end res.render	   
 	}); // end  app.use
 
@@ -57,26 +54,14 @@ module.exports = function(app){
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
-	app.get('/api/devours/:ident', function (req, res) {
-		    orm.updateOne('burgers', ident)
-			//if (err) throw err;
-		    orm.selectAll('burgers');
-	        //if (err) throw err; // include to show where db error is
-	        res.render('index', {	            
-	            burger: res,
-	            devour: res
-	        }); // 2nd function always an object // end res.render	 
+	app.put('/api/devours/:ident', function (req, res) {
+		    orm.updateOne('burgers', ident);		
+		    res.redirect('/index'); 
 	}); // end  app.post
 	
-	app.get('/api/addBurger', function (req, res) {
-	    orm.insertOne('burgers', 'addedBurger')
-		//if (err) throw err;
-	    var result = orm.selectAll('burgers');
-	        //if (err) throw err; // include to show where db error is
-	        res.render('index', {
-	           	burger: res,
-	            devour: res
-	        }); // 2nd function always an object // end res.render	 
+	app.post('/api/addBurger', function (req, res) {
+	    orm.insertOne('burgers', 'addedBurger');
+	    res.redirect('/index'); 
 	}); // end  app.post
 
 
