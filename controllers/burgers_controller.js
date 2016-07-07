@@ -26,14 +26,12 @@ module.exports = function(app){
 	// ---------------------------------------------------------------------------
 	app.get('/index', function (req, res) {
 	 	
-	    	orm.selectAll('burgers', function(res) {
+	    	orm.selectAll('burgers');
 	    		
 	    		res.render('index', {	            
 		           burgers: res
 		        }); //  end res.render
-	    	});   
-		        	
-	           
+         
 	}); // end  app.get
 
 
@@ -55,7 +53,7 @@ module.exports = function(app){
 
 
 	app.put('/api/devours/:ident', function (req, res) {
-		    orm.updateOne('burgers', ident);		
+		    orm.updateOne('burgers', req.params.ident);		
 		    res.redirect('/index'); 
 	}); // end  app.post
 	

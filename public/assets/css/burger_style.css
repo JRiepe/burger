@@ -27,10 +27,20 @@ li {
   margin-bottom: 5px;
 }
 
-button {
-	width: 100px;
-	height: 30px;
+.devourButton {
+	width: auto;
+	height: auto;
 	border-radius: 5px;
+	position: sticky;
+	float: auto;
+}
+
+
+button {
+	width: auto;
+	height: auto;
+	border-radius: 5px;
+	;
 }
 
 #burgerimg {
@@ -39,4 +49,13 @@ button {
 
 h1 {
 	color: #622569;
+}
+
+.eaten, .notEaten {
+	width: 300px;
+	height: auto;
+	position: relative;
+	margin: 0 auto;
+	text-align: left;
+
 }

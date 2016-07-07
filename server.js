@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.text());
 app.use(bodyParser.json({type:'application/vnd.api+json'}));
-app.use(express.static('app/public'));
+app.use(express.static('public'));
 // ================================================================================
 // ROUTER
 // The below points our server to a series of "route" files.
