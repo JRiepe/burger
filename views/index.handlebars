@@ -1,28 +1,27 @@
 
-<img id="burgerimg" src="./img/burger.png">
+<img id="burgerimg" src='../public/assets/img/burger.png'/img>
 <h1>Eat-Da-Burger</h1>
 <!-- this is index.handlebars -->
 
     <ul>
-        {{#each burger}}
+        {{#each burgers}}
           {{#unless devoured}}
-          <li>
-            <p>{{this.id}}. {{this.burger_name}}</p>      
-                <form action="/devours/{{this.id}}" method="POST">       
-                  <button type="submit">Devour it!</button>
-                </form>    
-          </li>
+              <li>
+                <p>{{this.id}}. {{this.burger_name}}</p>      
+                    <form action="/devours/{{this.id}}" method="POST">       
+                      <button type="submit">Devour it!</button>
+                    </form>    
+              </li>
           {{/unless}}
         {{/each}}
     </ul>
 
     <ul>
-        {{#each devour}}
+        {{#each burgers}}
           {{#if devoured}}
-          <li>
-            <p>{{this.id}}. {{this.burger_name}}</p>   
-          </li>
-          
+              <li>
+                <p>{{this.id}}. {{this.burger_name}}</p>   
+              </li>      
           {{/if}}
         {{/each}}
     </ul>

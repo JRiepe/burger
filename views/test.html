@@ -5,29 +5,29 @@
 <!-- this is index.handlebars -->
 
 <ul>
-  {{#each burger}}
-  	<li>
-  		<p>{{this.id}}. {{this.burger_name}}</p>
+  {{#each burgers}}
+  	<ul>
+        {{#each burgers}}
+          {{#unless devoured}}
+              <li>
+                <p>{{this.id}}. {{this.burger_name}}</p>      
+                    <form action="/devours/{{this.id}}" method="POST">       
+                      <button type="submit">Devour it!</button>
+                    </form>    
+              </li>
+          {{/unless}}
+        {{/each}}
+    </ul>
 
-      {{!-- Form should send a delete command to the server --}}
-      <form>
-        <input type="hidden" name="id" value="{{this.id}}">
-        <button type="submit">Devour it!</button>
-      </form>
-
-      <a href="//{{this.id}}">Update this quote</a>
-  	</li>
-  {{/each}}
-</ul>
-
-<ul>
-  {{#each devoured}}
-  	<li>
-  		<p>{{this.id}}. {{this.burger_name}}</p>
-    
-  	</li>
-  {{/each}}
-</ul>
+    <ul>
+        {{#each burgers}}
+          {{#if devoured}}
+              <li>
+                <p>{{this.id}}. {{this.burger_name}}</p>   
+              </li>      
+          {{/if}}
+        {{/each}}
+    </ul>
 
 <br>
 
