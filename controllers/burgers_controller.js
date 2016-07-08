@@ -52,12 +52,12 @@ module.exports = function(app){
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
-	app.put('/api/devours/:ident', function (req, res) {
+	app.put('/devours/:ident', function (req, res) {
 		    orm.updateOne('burgers', req.params.ident);		
 		    res.redirect('/index'); 
 	}); // end  app.post
 	
-	app.post('/api/addBurger', function (req, res) {
+	app.post('/addBurger', function (req, res) {
 	    orm.insertOne('burgers', 'addedBurger');
 	    res.redirect('/index'); 
 	}); // end  app.post
