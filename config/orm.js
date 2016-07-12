@@ -4,33 +4,30 @@ var connection = require('../config/connection.js');
 
 var orm = {
     selectAll: function(tableSelected) {
-        var queryString = 'SELECT * FROM ' + tableSelected;
+        var queryString = 'SELECT * FROM burgers;'; // + tableSelected;
+        console.log('query selectAll: '+ queryString);
         connection.query(queryString, function(err, result) {
+            if (err) throw err;
             return result;
 
         });
     },
-    insertOne: function(tableToInsert, burgName) {
-        var queryString = 'INSERT INTO ' + tableToInsert + ' (burger_name, devoured, date) VALUES (' + burgName + ', false, now())';
-        //console.log(queryString)
+    insertOne: function(burgName) {
+        var queryString = 'INSERT INTO burgers (burger_name, devoured, date) VALUES (?, false, now(), [' + req.body.burgName + ']);';
+        console.log('query insert: '+ queryString);
         connection.query(queryString, function(err, result) {
             return result;
         });
     },
-    updateOne: function(tableToUpdate, valKey) {
-        var queryString = 'UPDATE ' + tableToUpdate + ' SET devoured = false WHERE id = ' + valKey;
+    updateOne: function(valKey) {
+        var queryString = 'UPDATE burgers SET devoured = true WHERE id = ?' + '[' + valKey + ']' +';';
+        console.log('query update: '+ queryString);
         connection.query(queryString, function(err, result) {
             return result;
           
         });
     },
-    updateOne: function(tableToUpdate, valKey) {
-        var queryString = 'UPDATE ' + tableToUpdate + ' SET devoured = false WHERE id = ?';
-        connection.query(queryString, [valKey], function(err, result) {
-            return result;
-
-        });
-    }
+    
 };
 
 module.exports = orm;

@@ -2,19 +2,38 @@
 <img id="burgerimg" src='/assets/img/burger.png'/img>
 <h1>Eat-Da-Burger</h1>
 <!-- this is index.handlebars -->
+<div class=row>
 <div class='notEaten'>
-    <ul>
-        {{#each burgers}}
-          {{#unless devoured}}
-              <li>
-                <p>{{this.id}}. {{this.burger_name}}</p>      
-                    <form action="/devours/{{this.id}}" method="POST">       
-                      <button class="devourButton" type="submit">Devour it!</button>
-                    </form>    
-              </li>
-          {{/unless}}
-        {{/each}}
-    </ul>
+    
+        <ul>
+            {{#each burgers}}
+              {{#unless devoured}}
+                  
+                  <ul>
+                    <div>
+                      <p>{{this.id}}. {{this.burger_name}}</p>
+                    </div>
+                    <div>      
+                          
+                          <form method = "POST" action ="/update/{{this.id}}" >
+                            <button type="hidden" name="id" value={{this.id}}>Devour!</button>
+                          </form>
+
+
+
+
+                          <!--<form action="/devours/{{this.id}}" method="POST" action ="/update?_method=PUT" >       
+                          <button class="devourButton" type="submit">Devour it!</button>
+                          </form> -->
+                    </div>    
+                  </ul>
+              {{/unless}}
+            {{/each}}
+        </ul>
+    
+</div>
+<div class = 'devourButton'>
+
 </div>
 <div class='eaten'>
     <ul>
@@ -27,14 +46,18 @@
         {{/each}}
     </ul>
 </div>
+</div> <!-- end row -->
 <br>
 
 {{!-- Form should send a post command to the server --}}
-
-  <form action="/addBurger" method='POST'>
+  <form method='POST' action="/create">
+  
     <div class="form-group">
-      <textarea id="addedBurger" name="addedBurger" rows="1" cols="40"></textarea>
+      <textarea id="burgName" name="burgName" rows="1" cols="40"></textarea>
     </div>
 
     <button type="submit">Add New Burger</button>
+
   </form>
+
+
