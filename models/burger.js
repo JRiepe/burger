@@ -16,14 +16,14 @@ module.exports = function(app){
 	        
 	     
 		
-		orm.updateOne('burgers', 'req.params.ident', function (res) {
+		orm.updateOne('burgers', req.params.ident, function (res) {
 			res.redirect('/index');
 		});		
 			     
 	
 		
 		
-		orm.insertOne('burgers', 'addedBurger', function (res) {
+		orm.insertOne('burgName', function (res) {
 			res.redirect('/index'); 
 		});
 		   
